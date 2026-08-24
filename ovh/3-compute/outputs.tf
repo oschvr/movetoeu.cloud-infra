@@ -35,7 +35,7 @@ output "image_id" {
 
 output "ssh_key_name" {
   description = "Name of the SSH key registered and attached to the instance"
-  value       = ovh_cloud_ssh_key.compute_key.name
+  value       = ovh_cloud_project_ssh_key.compute_key.name
 }
 
 output "ssh_connect_hint" {

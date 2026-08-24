@@ -20,14 +20,6 @@ locals {
   ]
 }
 
-# Register the existing local SSH key so it can be attached to the instance
-resource "ovh_cloud_ssh_key" "compute_key" {
-  service_name = var.ovh_project_id
-  name         = var.ssh_key_name
-  public_key   = trimspace(file(pathexpand(var.ssh_public_key_path)))
-}
-
-
 # Standalone compute instance
 resource "ovh_cloud_project_instance" "compute" {
   service_name   = var.ovh_project_id
@@ -85,4 +77,12 @@ resource "ovh_cloud_project_instance" "compute" {
       error_message = "No image named '${var.image_name}' found in region ${var.region}."
     }
   }
+}
+
+
+# Register the existing local SSH key so it can be attached to the instance
+resource "ovh_cloud_project_ssh_key" "compute_key" {
+  service_name = var.ovh_project_id
+  name         = var.ssh_key_name
+  public_key   = trimspace(file(pathexpand(var.ssh_public_key_path)))
 }
